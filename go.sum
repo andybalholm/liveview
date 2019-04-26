@@ -1,0 +1,12 @@
+github.com/andybalholm/brotli v0.0.0-20190425160332-f00818cf3661 h1:2r0p4zHFR7gvJMbnI86B5S9QfspzgT9WjzMziSR0DU4=
+github.com/andybalholm/brotli v0.0.0-20190425160332-f00818cf3661/go.mod h1:/M9bY11bdGUFkhg0Lf4OIyXcViLNSjkpPamjp6l0yck=
+github.com/andybalholm/escaper v0.0.0-20190425200108-e0feaa7eaa85 h1:/55VYiN7yv1s1M+B70o6O0H5e3mhMZSIhWT8eaEeAHo=
+github.com/andybalholm/escaper v0.0.0-20190425200108-e0feaa7eaa85/go.mod h1:WU7qEm3SnXTcS1mFkKDAhM8PPKQyPkMD39vTbUA5vcA=
+github.com/golang/gddo v0.0.0-20190419222130-af0f2af80721 h1:KRMr9A3qfbVM7iV/WcLY/rL5LICqwMHLhwRXKu99fXw=
+github.com/golang/gddo v0.0.0-20190419222130-af0f2af80721/go.mod h1:xEhNfoBDX1hzLm2Nf80qUvZ2sVwoMZ8d6IE2SrsQfh4=
+github.com/google/go-cmp v0.2.0 h1:+dTQ8DZQJz0Mb/HjFlkptS1FeQ4cWSnN941F8aEG4SQ=
+github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5aqRK0M=
+github.com/gorilla/websocket v1.4.0 h1:WDFjx/TMzVgy9VdMMQi2K2Emtwi2QcUQsztZ/zLaH/Q=
+github.com/gorilla/websocket v1.4.0/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoAMk2YaljkQ=
+github.com/segmentio/ksuid v1.0.2 h1:9yBfKyw4ECGTdALaF09Snw3sLJmYIX6AbPJrAy6MrDc=
+github.com/segmentio/ksuid v1.0.2/go.mod h1:BXuJDr2byAiHuQaQtSKoXh1J0YmUDurywOXgB2w+OSU=
