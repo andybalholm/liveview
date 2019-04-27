@@ -2,19 +2,13 @@ package liveview
 
 var liveViewJS = []byte(
 	`(() => {
-  var converter = preactHtmlConverter.PreactHTMLConverter();
-  var html = converter.convert;
-
   var url = new URL(location.href);
   url.protocol = url.protocol.replace('http', 'ws');
   url.pathname = '/live-view/socket';
   var live_view = new WebSocket(url);
   live_view.addEventListener('open', event => {
-    // Hydrate client-side rendering
     document.querySelectorAll('[data-live-view]')
       .forEach(view => {
-        var node = html(view.innerHTML)[0];
-        preact.render(node, view, view.children[0]);
         live_view.send(JSON.stringify({
           subscribe: view.getAttribute('data-live-view'),
         }))
@@ -27,7 +21,7 @@ var liveViewJS = []byte(
 
     document.querySelectorAll('[data-live-view="' + id + '"]')
       .forEach(view => {
-        preact.render(html('<div>' + render + '</div>')[0], view, view.children[0]);
+		morphdom(view.children[0], '<div>' + render + '</div>');
       });
   });
 
@@ -50,21 +44,37 @@ var liveViewJS = []byte(
           .closest('[data-live-view]')
           .getAttribute('data-live-view')
 
-        var value = "";
-        switch(element.type) {
-          case "checkbox":
-			value = element.checked + "";
-			break;
-          default:
-			value = element.getAttribute('live-value') || element.value || "";
-			break;
-        }
+		var send_event = () => {
+			var value = "";
+			switch(element.type) {
+			  case "checkbox":
+				value = element.checked + "";
+				break;
+			  default:
+				value = element.getAttribute('live-value') || element.value || "";
+				break;
+			}
 
-        live_view.send(JSON.stringify({
-          event: event_name,
-          value: value,
-          channel: channel,
-        }));
+			live_view.send(JSON.stringify({
+			  event: event_name,
+			  value: value,
+			  channel: channel,
+			}));
+		};
+
+		if (event_type == "input") {
+			// Debounce it.
+			clearTimeout(element.liveview_timeout);
+			element.liveview_timeout = setTimeout(
+				() => {
+					element.liveview_timeout = null;
+					send_event();
+				},
+				500
+			);
+		} else {
+			send_event();
+		}
       }
     });
   });

@@ -88,7 +88,7 @@ type CheckboxExample struct {
 func (c *CheckboxExample) Render(e *escaper.Escaper) {
 	e.Print(`<label><input type="checkbox" live-change="toggle" `)
 	if c.checked {
-		e.Print(`checked=checked`)
+		e.Print(`checked`)
 	}
 	e.Print(
 		`>`,
@@ -111,7 +111,7 @@ type TextboxExample struct {
 
 func (t *TextboxExample) Render(e *escaper.Escaper) {
 	e.Print(
-		`<label>Echo your input: <input live-input=input></label>
+		`<label>Echo your input: <input live-input=input value="`, t.value, `"></label>
 		<div>`, t.value, `</div>`,
 	)
 }

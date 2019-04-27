@@ -175,8 +175,7 @@ func (c *Controller) Render(e *escaper.Escaper, v View) {
 
 // JSTag is the script tags that should be included in pages that use live
 // views.
-const JSTag template.HTML = `<script src="https://unpkg.com/preact@8.4.2/dist/preact.min.js"></script>
-<script src="https://unpkg.com/preact-html-converter@0.4.2/dist/preact-html-converter.browser.js"></script>
+const JSTag template.HTML = `<script src="https://cdn.jsdelivr.net/gh/patrick-steele-idem/morphdom/dist/morphdom-umd.js"></script>
 <script src="/live-view/live-view.js"></script>`
 
 type update struct {
