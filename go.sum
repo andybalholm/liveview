@@ -1,7 +1,5 @@
 github.com/andybalholm/brotli v0.0.0-20190425160332-f00818cf3661 h1:2r0p4zHFR7gvJMbnI86B5S9QfspzgT9WjzMziSR0DU4=
 github.com/andybalholm/brotli v0.0.0-20190425160332-f00818cf3661/go.mod h1:/M9bY11bdGUFkhg0Lf4OIyXcViLNSjkpPamjp6l0yck=
-github.com/andybalholm/escaper v0.0.0-20190425200108-e0feaa7eaa85 h1:/55VYiN7yv1s1M+B70o6O0H5e3mhMZSIhWT8eaEeAHo=
-github.com/andybalholm/escaper v0.0.0-20190425200108-e0feaa7eaa85/go.mod h1:WU7qEm3SnXTcS1mFkKDAhM8PPKQyPkMD39vTbUA5vcA=
 github.com/andybalholm/escaper v0.0.0-20190429204429-fe8d9c67bc9e h1:Zt8Z8UpRVt0H1u7pUZF7Cta73MIMLFyKQYl4w6hw1Hc=
 github.com/andybalholm/escaper v0.0.0-20190429204429-fe8d9c67bc9e/go.mod h1:WU7qEm3SnXTcS1mFkKDAhM8PPKQyPkMD39vTbUA5vcA=
 github.com/golang/gddo v0.0.0-20190419222130-af0f2af80721 h1:KRMr9A3qfbVM7iV/WcLY/rL5LICqwMHLhwRXKu99fXw=

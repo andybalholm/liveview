@@ -93,7 +93,9 @@ func (c *Controller) Register(views ...View) {
 	}
 }
 
-var upgrader = websocket.Upgrader{}
+var upgrader = websocket.Upgrader{
+	EnableCompression: true,
+}
 
 type subscription struct {
 	Channel string `json:"subscribe"`
