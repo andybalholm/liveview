@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -161,16 +162,16 @@ func (c *Controller) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 // Render renders v to e, wrapped in a div that makes it a live view. The View
 // is automatically Registered if it was not registered already.
-func (c *Controller) Render(e *escaper.Escaper, v View) {
+func (c *Controller) Render(w io.Writer, v View) {
 	ch := c.channelForView(v)
 	if ch == nil {
 		c.Register(v)
 		ch = c.channelForView(v)
 	}
 
-	e.Print(`<div data-live-view="`, ch.id, `"><div>`)
-	v.Render(e)
-	e.Print(`</div></div>`)
+	fmt.Fprintf(w, `<div data-live-view="%s"><div>`, ch.id)
+	v.Render(w)
+	io.WriteString(w, `</div></div>`)
 }
 
 // JSTag is the script tags that should be included in pages that use live

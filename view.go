@@ -1,8 +1,6 @@
 package liveview
 
-import (
-	"github.com/andybalholm/escaper"
-)
+import "io"
 
 // An Event represents an action by the user, such as clicking a button. There
 // are also special Events named "connect" and "disconnect" that take place
@@ -20,6 +18,6 @@ type Event struct {
 
 // A View is a component that can render itself to HTML, and respond to Events.
 type View interface {
-	Render(e *escaper.Escaper)
+	Render(w io.Writer)
 	HandleEvent(e Event)
 }

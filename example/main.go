@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"net/http"
 	"time"
 
@@ -39,7 +40,8 @@ type ClickCounter struct {
 	count int
 }
 
-func (c *ClickCounter) Render(e *escaper.Escaper) {
+func (c *ClickCounter) Render(w io.Writer) {
+	e := escaper.New(w)
 	e.Print(
 		`<button live-click="decrement">-</button>`,
 		c.count,
@@ -62,7 +64,8 @@ type CurrentTime struct {
 	_ byte
 }
 
-func (CurrentTime) Render(e *escaper.Escaper) {
+func (CurrentTime) Render(w io.Writer) {
+	e := escaper.New(w)
 	e.Print(`<time>`, time.Now().Format("Jan 2, 2006 3:04:05 PM"), `</time>`)
 }
 
@@ -85,7 +88,8 @@ type CheckboxExample struct {
 	checked bool
 }
 
-func (c *CheckboxExample) Render(e *escaper.Escaper) {
+func (c *CheckboxExample) Render(w io.Writer) {
+	e := escaper.New(w)
 	e.Print(`<label><input type="checkbox" live-change="toggle" `)
 	if c.checked {
 		e.Print(`checked`)
@@ -109,7 +113,8 @@ type TextboxExample struct {
 	value string
 }
 
-func (t *TextboxExample) Render(e *escaper.Escaper) {
+func (t *TextboxExample) Render(w io.Writer) {
+	e := escaper.New(w)
 	e.Print(
 		`<label>Echo your input: <input live-input=input value="`, t.value, `"></label>
 		<div>`, t.value, `</div>`,
