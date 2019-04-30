@@ -12,6 +12,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/andybalholm/brotli"
 	"github.com/andybalholm/escaper"
 	"github.com/gorilla/websocket"
 	"github.com/segmentio/ksuid"
@@ -156,7 +157,9 @@ func (c *Controller) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "/live-view/live-view.js":
 		w.Header().Set("Content-Type", "application/javascript")
 		w.Header().Set("Cache-Control", "max-age=86400")
-		w.Write(liveViewJS)
+		c := brotli.HTTPCompressor(w, r)
+		defer c.Close()
+		c.Write(liveViewJS)
 
 	default:
 		http.NotFound(w, r)
