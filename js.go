@@ -33,6 +33,13 @@ var liveViewJS = []byte(
   // (c) 2016 Tomek "Grych" Gryszkiewicz
   function form_params(form) {
 	  var params = {};
+	  function add(key, value) {
+		  if (params[key]) {
+			  params[key].push(value);
+		  } else {
+			  params[key] = [value];
+		  }
+	  }
 	  var inputs = form.querySelectorAll("input, textarea, select");
 	  for (var i = 0; i < inputs.length; i++) {
 		var input = inputs[i];
@@ -40,10 +47,17 @@ var liveViewJS = []byte(
 		if (key) {
 		  if (input.type == "radio" || input.type == 'checkbox') {
 			if (input.checked) {
-			  params[key] = input.value;
+				add(key, input.value);
 			}
+		  } else if (input.type == "select-multiple") {
+			  for (var j = 0; j < input.options.length; j++) {
+				  var option = input.options[j];
+				  if (option.selected) {
+					  add(key, option.value);
+				  }
+			  }
 		  } else {
-			params[key] = input.value;
+			  add(key, input.value);
 		  }
 		}
 	  };

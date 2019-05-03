@@ -1,6 +1,9 @@
 package liveview
 
-import "io"
+import (
+	"io"
+	"net/url"
+)
 
 // An Event represents an action by the user, such as clicking a button. There
 // are also special Events named "connect" and "disconnect" that take place
@@ -14,7 +17,7 @@ type Event struct {
 	Value string `json:"value"`
 
 	// If the event is a form submission, FormData is the values from the form.
-	FormData map[string]string `json:"form_data"`
+	FormData url.Values `json:"form_data"`
 
 	ChannelID string `json:"channel"`
 }
