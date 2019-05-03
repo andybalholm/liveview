@@ -35,31 +35,34 @@ var liveViewJS = []byte(
     'input',
   ].forEach(event_type => {
     document.addEventListener(event_type, event => {
-      var element = event.target;
-      var event_name = element.getAttribute('live-' + event_type);
+	  var target = event.target;
+      var element = target.closest('[live-' + event_type + ']');
 
-      if(typeof event_name === 'string') {
-        var channel = event
-          .target
+      if(element) {
+        var event_name = element.getAttribute('live-' + event_type);
+		event.preventDefault();
+        var channel = element
           .closest('[data-live-view]')
           .getAttribute('data-live-view')
 
 		var send_event = () => {
-			var value = "";
+			var data = {
+				event: event_name,
+				channel: channel,
+			};
 			switch(element.type) {
 			  case "checkbox":
-				value = element.checked + "";
+				data.value = target.checked + "";
 				break;
 			  default:
-				value = element.getAttribute('live-value') || element.value || "";
+				var value = target.value;
+				if (typeof(value) == "string") {
+					data.value = value;
+				}
 				break;
 			}
 
-			live_view.send(JSON.stringify({
-			  event: event_name,
-			  value: value,
-			  channel: channel,
-			}));
+			live_view.send(JSON.stringify(data));
 		};
 
 		if (event_type == "input") {
