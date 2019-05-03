@@ -13,6 +13,9 @@ type Event struct {
 	// If the target of the event is a form control, Value is its current value.
 	Value string `json:"value"`
 
+	// If the event is a form submission, FormData is the values from the form.
+	FormData map[string]string `json:"form_data"`
+
 	ChannelID string `json:"channel"`
 }
 

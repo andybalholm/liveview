@@ -29,10 +29,32 @@ var liveViewJS = []byte(
     // Do we need to do anything here?
   });
 
+  // The form_params function is borrowed from https://github.com/grych/drab.
+  // (c) 2016 Tomek "Grych" Gryszkiewicz
+  function form_params(form) {
+	  var params = {};
+	  var inputs = form.querySelectorAll("input, textarea, select");
+	  for (var i = 0; i < inputs.length; i++) {
+		var input = inputs[i];
+		var key = input.name || input.id || false;
+		if (key) {
+		  if (input.type == "radio" || input.type == 'checkbox') {
+			if (input.checked) {
+			  params[key] = input.value;
+			}
+		  } else {
+			params[key] = input.value;
+		  }
+		}
+	  };
+	  return params;
+  }
+
   [
     'click',
     'change',
     'input',
+	'submit',
   ].forEach(event_type => {
     document.addEventListener(event_type, event => {
 	  var target = event.target;
@@ -55,11 +77,14 @@ var liveViewJS = []byte(
 				data.value = target.checked + "";
 				break;
 			  default:
-				var value = target.value;
-				if (typeof(value) == "string") {
-					data.value = value;
+				if (typeof(target.value) == "string") {
+					data.value = target.value;
 				}
 				break;
+			}
+
+			if (event_type == "submit") {
+				data.form_data = form_params(target);
 			}
 
 			live_view.send(JSON.stringify(data));
