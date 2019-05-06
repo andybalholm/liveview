@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"time"
@@ -117,7 +118,7 @@ func (t *TextboxExample) Render(w io.Writer) {
 	e := escaper.New(w)
 	e.Print(
 		`<label>Echo your input: <input live-input=input value="`, t.value, `"></label>
-		<div>`, t.value, `</div>`,
+		<div id=echo>`, t.value, `</div>`,
 	)
 }
 
@@ -125,6 +126,6 @@ func (t *TextboxExample) HandleEvent(evt liveview.Event) {
 	switch evt.Event {
 	case "input":
 		t.value = evt.Value
-		lvc.Update(t)
+		lvc.QuerySelector(t, "#echo").Do(fmt.Sprintf(`this.innerText = %q`, evt.Value))
 	}
 }

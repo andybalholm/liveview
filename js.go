@@ -17,12 +17,18 @@ var liveViewJS = []byte(
 
   live_view.addEventListener('message', event => {
     var data = event.data;
-    var { id, render } = JSON.parse(data);
+    var { id, render, selector, action } = JSON.parse(data);
 
-    document.querySelectorAll('[data-live-view="' + id + '"]')
-      .forEach(view => {
+    var view = document.querySelector('[data-live-view="' + id + '"]');
+
+	if (render) {
 		morphdom(view.children[0], '<div>' + render + '</div>');
-      });
+	}
+
+	if (action) {
+		var f = new Function(action);
+		f.call(view.querySelector(selector));
+	}
   });
 
   live_view.addEventListener('close', event => {
@@ -104,15 +110,15 @@ var liveViewJS = []byte(
 			live_view.send(JSON.stringify(data));
 		};
 
-		if (event_type == "input") {
-			// Debounce it.
+		var debounce = element.getAttribute("live-debounce");
+		if (debounce) {
 			clearTimeout(element.liveview_timeout);
 			element.liveview_timeout = setTimeout(
 				() => {
 					element.liveview_timeout = null;
 					send_event();
 				},
-				500
+				debounce
 			);
 		} else {
 			send_event();
