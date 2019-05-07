@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"time"
@@ -126,6 +125,6 @@ func (t *TextboxExample) HandleEvent(evt liveview.Event) {
 	switch evt.Event {
 	case "input":
 		t.value = evt.Value
-		lvc.QuerySelector(t, "#echo").Do(fmt.Sprintf(`this.innerText = %q`, evt.Value))
+		lvc.QuerySelector(t, "#echo").SetTextContent(evt.Value)
 	}
 }
