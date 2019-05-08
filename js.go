@@ -62,6 +62,8 @@ var liveViewJS = []byte(
 					  add(key, option.value);
 				  }
 			  }
+		  } else if (input.type == "submit") {
+			  // Ignore it.
 		  } else {
 			  add(key, input.value);
 		  }
@@ -103,8 +105,16 @@ var liveViewJS = []byte(
 				break;
 			}
 
-			if (event_type == "submit") {
-				data.form_data = form_params(target);
+			var form;
+			if (target.tagName == "FORM") {
+				form = target;
+			} else if (element.tagName == "FORM") {
+				form = element;
+			} else if (target.form) {
+				form = target.form;
+			}
+			if (form) {
+				data.form_data = form_params(form);
 			}
 
 			live_view.send(JSON.stringify(data));
