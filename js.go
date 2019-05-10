@@ -21,7 +21,7 @@ var liveViewJS = []byte(
 
     var view = document.querySelector('[data-live-view="' + id + '"]');
 
-	if (render) {
+	if (typeof(render) == "string") {
 		morphdom(view.children[0], '<div>' + render + '</div>');
 	}
 
