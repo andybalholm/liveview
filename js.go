@@ -101,6 +101,8 @@ var liveViewJS = []byte(
 			  default:
 				if (typeof(target.value) == "string") {
 					data.value = target.value;
+				} else if (element.hasAttribute("live-value")) {
+					data.value = element.getAttribute("live-value");
 				}
 				break;
 			}
